@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import NavBar from "./components/NavBar";
+import AppBody from "./components/AppBody";
+import store from "./redux/store";
+import WatchPage from "./components/WatchPage"
+
+import { Provider } from "react-redux";
+import { Route,Routes } from "react-router-dom";
+import Practise from "./components/Practise";
+import RelatedVideos from "./components/RelatedVideos";
+import Shimmer from "./components/Shimmer";
+import SearchVideo from "./components/SearchVideo";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // <Provider store={store}>
+    <Practise/>
+    // </Provider>
+  
+    // <Provider store={store}>
+    //   <div className="App">
+    //     <div className="">
+    //       <NavBar />
+    //       <div className="pt-4">
+    //         <Routes>
+    //           <Route path="/" element={<AppBody />}/>
+    //           <Route path="/video/:videoId" element={<WatchPage/>}/>
+    //           <Route path="/search/:query" element={<SearchVideo/>} />
+    //         </Routes>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </Provider>
   );
 }
 
