@@ -15,7 +15,7 @@ export default function Practise() {
 
   return (
     <div>
-      <button onClick={startListening}>Start Listening</button>
+      <button onClick={startListening}>Start hearing</button>
     </div>
   )
 }
