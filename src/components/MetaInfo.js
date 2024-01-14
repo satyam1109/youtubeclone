@@ -20,6 +20,7 @@ export default function MetaInfo({ videoId }) {
 
   const addToWatchLaterfun = ()=>{
     dispatch(addToWatchLater(videoId));
+    alert("Video added to Watch Later");
   }
 
   const [title, setTitle] = useState("");
@@ -30,6 +31,7 @@ export default function MetaInfo({ videoId }) {
   const [date,setdate] = useState("") 
   const [showButton, setShowButton] = useState("Show More");
   const [channelId,setChannelId] = useState("");
+
 
   const [description,setDescription] = useState("");
 
@@ -55,6 +57,7 @@ export default function MetaInfo({ videoId }) {
     setstat(json?.items[0]?.statistics);
     setDescp(json?.items[0]?.snippet?.localized?.description);
     setChannelId(json?.items[0]?.snippet?.channelId);
+
     
   };
 
@@ -88,6 +91,7 @@ export default function MetaInfo({ videoId }) {
 
   return (
     <>
+
     <div className={`my-4 w-400 h-auto ${darkmode ? `text-white`:`text-black`}`}>
       <div>
         <h1 className="font-bold text-xl">{title}</h1>

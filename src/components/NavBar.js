@@ -7,6 +7,7 @@ import { addToCache } from "../redux/searchSlice";
 import { setInputData } from "../redux/searchquery";
 import { useNavigate } from "react-router-dom";
 import { FaMicrophone } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 import { setVoiceInputTrue } from "../redux/searchquery";
 import { toggleDarkMode } from "../redux/appSlice";
 import VoiceInput from "./VoiceInput";
@@ -123,8 +124,6 @@ export default function NavBar() {
               className="ml-6 text-3xl bg-gray-200 rounded-full p-2 cursor-pointer hover:bg-gray-300"
               onClick={() => dispatch(setVoiceInputTrue())}
             />
-
-          
           </div>
           <div>
             {suggestions && suggestions.length > 0 && (
@@ -146,18 +145,23 @@ export default function NavBar() {
           </div>
         </div>
 
-
         <div className="flex">
 
-        <button onClick={() => dispatch(toggleDarkMode())}>
-              {darkmode ? <p>Light</p> : <p>Dark</p>}
-        </button>
+          <button onClick={() => dispatch(toggleDarkMode())} className="mx-4">
+            {darkmode ? (
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/6591/6591975.png"
+                className="w-8"
+              />
+            ) : (
+              <img
+                src="https://i.pinimg.com/564x/1c/22/43/1c22433b8d3aec799fd8187ca3030193.jpg"
+                className="w-8"
+              />
+            )}
+          </button>
 
-          <img
-            src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
-            className="w-8 h-8 ml-4 rounded-full mt-2 mr-4"
-            alt="User Avatar"
-          />
+          <FaUserCircle size="2rem" className={`mx-4 ${darkmode ? `text-white`:`text-black`}`}/>
         </div>
       </div>
     </div>
