@@ -50,7 +50,7 @@ export default function VoiceInput() {
         <div className="h-80 flex flex-col justify-between">
           <div className="flex justify-between">
             <div className="p-8">
-              {(!transcriptRef.current) ? (<p className="text-xl font-sans">Loading...</p>): <p className="text-xl font-sans">{transcript}</p>}
+              {(!transcriptRef.current) ? (<p className="text-xl font-sans">Listening...</p>): <p className="text-xl font-sans">{transcript}</p>}
             
             </div>
             <button
