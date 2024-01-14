@@ -103,7 +103,7 @@ export default function VideoContainer() {
   if(categ!=='All'){
     return (
       <div>
-      <div className="mt-2 flex flex-wrap">
+      <div className="mtflex flex-wrap mt-4">
     
         {categVideos.map((item, index) => (
           <div key={index}>
@@ -124,7 +124,8 @@ export default function VideoContainer() {
   
 
   return (
-    <div className="mt-2 flex flex-wrap">
+    <div className="flex flex-wrap mt-4">
+
       <InfiniteScroll
         dataLength={videos.length}
         next={handleLoadMore}

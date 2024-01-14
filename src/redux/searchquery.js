@@ -5,6 +5,7 @@ const searchQuery = createSlice({
     initialState :{
         searchquery:"music",
         buttoncategory:"All",
+        voiceActive:false,
     },
     reducers : {
         setInputData:(state,action)=>{
@@ -12,9 +13,15 @@ const searchQuery = createSlice({
         },
         setButtonCategory:(state,action)=>{
             state.buttoncategory = action.payload;
-        }
+        },
+        setVoiceInputTrue:(state)=>{
+            state.voiceActive=true;
+        },
+        setVoiceActiveFalse:(state) =>{
+            state.voiceActive=false;
+        },
     },
 });
 
-export const {setInputData,setButtonCategory} = searchQuery.actions;
+export const {setInputData,setButtonCategory,setVoiceInputTrue,setVoiceActiveFalse} = searchQuery.actions;
 export default searchQuery.reducer;

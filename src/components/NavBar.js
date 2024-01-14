@@ -6,6 +6,9 @@ import { IoSearchOutline } from "react-icons/io5";
 import { addToCache } from "../redux/searchSlice";
 import { setInputData } from "../redux/searchquery";
 import { useNavigate } from 'react-router-dom';
+import { FaMicrophone } from "react-icons/fa";
+import { setVoiceInputTrue } from "../redux/searchquery";
+import VoiceInput from "./VoiceInput";
 
 export default function NavBar() {
 
@@ -73,6 +76,7 @@ export default function NavBar() {
     <div className="sticky top-0 left-0 bg-white overflow-hidden z-10">
     <div className="flex flex-row items-center justify-between">
 
+
       <div className="flex mx-2">
 
         <img src="https://static.vecteezy.com/system/resources/previews/021/190/402/original/hamburger-menu-filled-icon-in-transparent-background-basic-app-and-web-ui-bold-line-icon-eps10-free-vector.jpg"
@@ -88,9 +92,13 @@ export default function NavBar() {
         </Link>
       </div>
 
+      
+
       <div className="w-96">
       <div className="flex p-2 w-full">
-        
+
+
+      <VoiceInput className="z-10 left-1"/>
             <input
               type="text"
               className="border border-gray-400 pl-4 py-1 focus:outline-none rounded-l-full h-8 w-full"
@@ -101,6 +109,11 @@ export default function NavBar() {
             <button className="bg-gray-100 border border-gray-400 px-2 py-1 rounded-r-full h-8" onClick={handleSearchClick}>
             <IoSearchOutline className="text-lg"/>
             </button>
+
+            <FaMicrophone  className="ml-6 text-3xl bg-gray-200 rounded-full p-2 cursor-pointer hover:bg-gray-300" onClick={()=>dispatch(setVoiceInputTrue())}/>
+
+            
+
 
       </div>
       <div>

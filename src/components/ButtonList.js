@@ -6,9 +6,9 @@ export default function ButtonList() {
 
   
 
-  const ButtonType = ["All","Music","News","Java Script","React.js","Node.js","Podcasts","Fitness","Comedy","Clothing","Software Engineering"]
+  const ButtonType = ["All","Music","News","Java Script","React.js","Node.js","C++","DSA","Podcasts","Fitness","Comedy","Clothing","Software Engineering"]
   return (
-    <div className='flex'>
+    <div className='flex fixed bg-white z-10 pb-4 pt-2'>
 
       {
         ButtonType.map((item,index)=>(
