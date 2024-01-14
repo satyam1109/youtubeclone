@@ -7,11 +7,16 @@ import Shimmer from "./Shimmer";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { mainPageLoad } from "../redux/appSlice";
 import { useSelector } from "react-redux";
+import { apiKey } from "../utils/constants";
+import { apiKey1 } from "../utils/constants";
+
 
 
 export default function VideoContainer() {
 
   const categ = useSelector((store) => store.query.buttoncategory);
+
+  const darkmode = useSelector((store) => store.app.isdark);
 
   const [videos, setVideos] = useState([]);
   const [categVideos,setcategVideos] = useState([]);
@@ -20,8 +25,7 @@ export default function VideoContainer() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading,setIsLoading] = useState(true);
 
-  const apiKey = "AIzaSyCM-BtqrjbmqNMA8Jkepaj2L9Ybg8eBuYc";
-  const apiKey1 = "AIzaSyDUeoF1Ix1cBVb2OvvReWNkjZ2MKTF4aTM";
+
 
   const button_categ = useSelector((store) => store.query.buttoncategory);
 
@@ -103,7 +107,7 @@ export default function VideoContainer() {
   if(categ!=='All'){
     return (
       <div>
-      <div className="mtflex flex-wrap mt-4">
+      <div className={`flex flex-wrap pt-12 ${darkmode ? `bg-slate-950`: `bg-white`}`}>
     
         {categVideos.map((item, index) => (
           <div key={index}>
@@ -124,7 +128,7 @@ export default function VideoContainer() {
   
 
   return (
-    <div className="flex flex-wrap mt-4">
+    <div className={`flex flex-wrap pt-8 ${darkmode ? `bg-slate-950`: `bg-white`}`}>
 
       <InfiniteScroll
         dataLength={videos.length}

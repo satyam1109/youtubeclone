@@ -17,7 +17,7 @@ export default function ContentButton({name}) {
   return (
     <div>
       
-    <button className={`${categ===name ? 'bg-gray-400' : 'bg-gray-200'} rounded-lg px-3 py-1 mx-2 hover:bg-gray-300`} onClick={handleButtonClick}><p className='text-sm font-semibold'>{name}</p></button>
+    <button className={`${categ===name ? 'bg-gray-400' : 'bg-gray-100'} rounded-lg px-3 py-1 mx-1 hover:bg-gray-300`} onClick={handleButtonClick}><p className='text-xs font-semibold'>{name}</p></button>
     </div>
   )
 }

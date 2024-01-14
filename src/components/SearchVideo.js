@@ -4,12 +4,13 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import SideBar from "./SideBar";
 import Shimmer from "./Shimmer";
+import { apiKey3 } from "../utils/constants";
 
 export default function SearchVideo() {
   const [videos, setvideos] = useState([]);
 
   const query = useSelector((store) => store.query.searchquery);
-  const apiKey = "AIzaSyDUeoF1Ix1cBVb2OvvReWNkjZ2MKTF4aTM";
+  const darkmode = useSelector((store) => store.app.isdark);
 
   useEffect(() => {
     getSearchResults();
@@ -18,7 +19,7 @@ export default function SearchVideo() {
   const getSearchResults = async () => {
     try {
       const response = await fetch(
-        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${query}&order=viewCount&videoDuration=medium&key=${apiKey}&maxResults=30`
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${query}&order=viewCount&videoDuration=medium&key=${apiKey3}&maxResults=30`
       );
 
       const data = await response.json();
@@ -38,11 +39,11 @@ export default function SearchVideo() {
   }
 
   return (
-    <div className="flex flex-row">
+    <div className={`flex flex-row ${darkmode ? `bg-slate-950`:`bg-white`}`}>
         <div>
         <SideBar/>
         </div>
-      <div className="mx-auto w-8/12">
+      <div className={`mx-auto w-8/12`}>
         {videos.map((item) => (
           <div key={item.id.videoId}>
             <Link to={`/video/${item.id.videoId}`}>

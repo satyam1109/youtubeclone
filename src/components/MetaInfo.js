@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { META_DATA_API } from "../utils/constants";
 import { useSearchParams } from "react-router-dom";
 import moment from "moment";
-
+import { apiKey1 } from "../utils/constants";
+import { addToWatchLater } from "../redux/videoRecord";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { FiThumbsUp } from "react-icons/fi";
 import { LuThumbsDown } from "react-icons/lu";
 import { PiShareFat } from "react-icons/pi";
-import { BsDownload } from "react-icons/bs";
+import { HiOutlineSaveAs } from "react-icons/hi";
 import { HiDotsHorizontal } from "react-icons/hi";
 import Comments from "./Comments";
 
 export default function MetaInfo({ videoId }) {
 
+  const dispatch = useDispatch();
+  const darkmode = useSelector((store) => store.app.isdark);
+
+  const addToWatchLaterfun = ()=>{
+    dispatch(addToWatchLater(videoId));
+  }
 
   const [title, setTitle] = useState("");
   const [channel, setChannel] = useState("");
@@ -21,6 +29,7 @@ export default function MetaInfo({ videoId }) {
   const [icon, setIcon] = useState("");
   const [date,setdate] = useState("") 
   const [showButton, setShowButton] = useState("Show More");
+  const [channelId,setChannelId] = useState("");
 
   const [description,setDescription] = useState("");
 
@@ -28,9 +37,15 @@ export default function MetaInfo({ videoId }) {
     getMetaInfo();
   }, [videoId]);
 
+  useEffect(()=>{
+    get_channel_icon();
+  },[channelId]);
+
+
+
   const getMetaInfo = async () => {
     const data = await fetch(
-      `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=AIzaSyCM-BtqrjbmqNMA8Jkepaj2L9Ybg8eBuYc`
+      `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${apiKey1}`
     );
     const json = await data.json();
 
@@ -39,7 +54,7 @@ export default function MetaInfo({ videoId }) {
     setChannel(json?.items[0]?.snippet?.channelTitle);
     setstat(json?.items[0]?.statistics);
     setDescp(json?.items[0]?.snippet?.localized?.description);
-    setIcon(json?.items[0]?.snippet?.thumbnails?.default.url);
+    setChannelId(json?.items[0]?.snippet?.channelId);
     
   };
 
@@ -61,15 +76,25 @@ export default function MetaInfo({ videoId }) {
     }
   };
 
+  const get_channel_icon = async () => {
+    const response = await fetch(
+      `https://youtube.googleapis.com/youtube/v3/channels?part=snippet&id=${channelId}&key=${apiKey1}`
+    );
+    const data = await response.json();
+    setIcon(data?.items?.[0]?.snippet?.thumbnails?.default?.url);
+  };
+
+
+
   return (
     <>
-    <div className="my-4 w-400 h-auto">
+    <div className={`my-4 w-400 h-auto ${darkmode ? `text-white`:`text-black`}`}>
       <div>
         <h1 className="font-bold text-xl">{title}</h1>
       </div>
 
       <div className="flex flex-row justify-between my-3">
-        <div className="flex flex-row">
+        <div className={`flex flex-row`}>
           <div className="w-14 h-18">
             <img src={icon} className="rounded-full w-full" />
           </div>
@@ -77,41 +102,41 @@ export default function MetaInfo({ videoId }) {
             <p className="font-bold text-md">{channel}</p>
             <p className="text-sm">Suscribers</p>
           </div>
-          <div className="py-1 px-3 rounded-3xl bg-black text-white my-1 mx-2 cursor-pointer">
-            Subscribe
+          <div className="py-1 px-3 rounded-3xl bg-black text-white my-1 mx-2 cursor-pointer h-8">
+            <p className="text-sm py-auto">Subscribe</p>
           </div>
         </div>
 
         <div className="flex flex-row h-8 mt-1">
-          <div className="flex flex-row bg-gray-200 p-1 rounded-3xl mx-1 cursor-pointer">
-            <FiThumbsUp className="w-4 h-5 mx-1 text-gray-800 mt-1" />
-            <span className="mx-1 tex-sm text-gray-800">
+          <div className={`flex flex-row ${darkmode ? `bg-zinc-600 text-white` : `bg-zinc-200`} p-1 rounded-3xl mx-1 cursor-pointer`}>
+            <FiThumbsUp className="w-4 h-5 mx-1 mt-1" />
+            <span className="mx-1 tex-sm">
               {Intl.NumberFormat("en", { notation: "compact" }).format(
                 stat?.likeCount
               )}{" "}
               |
             </span>
 
-            <LuThumbsDown className="w-4 h-5 mx-2 text-gray-800 mt-1 cursor-pointer" />
+            <LuThumbsDown className="w-4 h-5 mx-2  mt-1 cursor-pointer" />
           </div>
 
-          <div className="flex flex-row bg-gray-200 p-1 rounded-3xl mx-1 cursor-pointer">
+          <div className={`flex flex-row ${darkmode ? `bg-zinc-600` : `bg-zinc-200`} p-1 rounded-3xl mx-1 cursor-pointer`}>
             <PiShareFat className="w-5 h-5 mx-1" />
-            <span className="mr-1">Share</span>
+            <span className="mr-1"><p className="text-sm">Share</p></span>
           </div>
 
-          <div className="flex flex-row bg-gray-200 p-1 rounded-3xl cursor-pointer">
-            <BsDownload className="w-5 h-5 mx-2" />
-            <span className="mr-1">Download</span>
+          <div className={`flex flex-row ${darkmode ? `bg-zinc-600` : `bg-zinc-200`} p-1 rounded-3xl cursor-pointer `} onClick={addToWatchLaterfun}>
+            <HiOutlineSaveAs className="w-5 h-5 mx-2" />
+            <span className="mr-1"><p className="text-sm">Watch Later</p></span>
           </div>
 
-          <div className="flex flex-row bg-gray-200 p-1 rounded-3xl mx-1 cursor-pointer">
+          <div className={`flex flex-row ${darkmode ? `bg-zinc-600` : `bg-zinc-200`} p-1 rounded-3xl mx-1 cursor-pointer`}>
             <HiDotsHorizontal className="w-5 h-5" />
           </div>
         </div>
       </div>
 
-      <div className="bg-gray-100 mt-8 rounded-md">
+      <div className={`${darkmode ? `bg-slate-900`:`bg-gray-100`} mt-8 rounded-md`}>
 
         <div className="flex flex-row font-bold">
           <div>

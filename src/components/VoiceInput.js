@@ -32,7 +32,7 @@ export default function VoiceInput() {
           dispatch(setButtonCategory(transcriptRef.current));
         }
         dispatch(setVoiceActiveFalse());
-      }, 7000);
+      }, 6000);
     }
     if (!voiceActive) {
       SpeechRecognition.stopListening();

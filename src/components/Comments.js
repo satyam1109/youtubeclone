@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import { MdOutlineSort } from "react-icons/md";
 import { FaCircleUser } from "react-icons/fa6";
 import Comment from "./Comment";
+import { apiKey } from "../utils/constants";
+import { useSelector } from "react-redux";
 
 export default function Comments({ videoId, commentCount }) {
 
   const [info, setinfo] = useState([]);
   const [maxResults,setMaxResults]=useState(10);
+  const darkmode = useSelector((store) => store.app.isdark);
 
   useEffect(() => {
     getComments();
@@ -14,7 +17,7 @@ export default function Comments({ videoId, commentCount }) {
 
   const getComments = async () => {
     const data = await fetch(
-      `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&order=relevance&key=AIzaSyCM-BtqrjbmqNMA8Jkepaj2L9Ybg8eBuYc&videoId=${videoId}&maxResults=${maxResults}`
+      `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&order=relevance&key=${apiKey}&videoId=${videoId}&maxResults=${maxResults}`
     );
     const json = await data.json();
 
@@ -26,7 +29,7 @@ export default function Comments({ videoId, commentCount }) {
   }
 
   return (
-    <div className="mt-4">
+    <div className={`mt-4 ${darkmode ? `text-white`:`text-black`}`}>
       <div className="flex flex-row">
         <span className="text-lg font-semibold">{commentCount} Comments</span>
         <MdOutlineSort className="text-2xl ml-8" />
@@ -37,7 +40,7 @@ export default function Comments({ videoId, commentCount }) {
         <FaCircleUser className="text-5xl mr-4" />
         <input
           type="text"
-          className="border-b border-gray-500 focus:outline-none focus:border-blue-500 w-full mb-4"
+          className={`border-b border-gray-500 focus:outline-none focus:border-blue-500 w-full mb-4 ${darkmode ? `bg-slate-900`:`bg-gray-50`}`}
           placeholder="Add a Comment"
         />
       </div>

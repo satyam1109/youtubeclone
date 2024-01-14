@@ -3,8 +3,12 @@ import moment from "moment";
 import { FiThumbsUp } from "react-icons/fi";
 import { LuThumbsDown } from "react-icons/lu";
 import Reply from "./Reply";
+import { useSelector } from "react-redux";
 
 export default function Comment({ data }) {
+
+  const darkmode = useSelector((store) => store.app.isdark);
+
   const { snippet, replies } = data;
 
   const comments = replies?.comments;
@@ -27,7 +31,7 @@ export default function Comment({ data }) {
   } = commentinfo;
 
   return (
-    <div className="flex flex-row mt-4">
+    <div className={`flex flex-row mt-4`}>
       <div className="mx-2">
         <img
           src={authorProfileImageUrl}
@@ -35,9 +39,10 @@ export default function Comment({ data }) {
         />
       </div>
 
-      <div className="flex flex-col">
-        <div className="flex flex-row">
-          <span className="text-xs font-semibold mr-4">
+      <div className={`flex flex-col ${darkmode ? `text-white`:`text-black`}`}>
+
+        <div className={`flex flex-row `}>
+          <span className={`text-xs font-semibold mr-4`}>
             {authorDisplayName}
           </span>
           <span className="text-xs">{moment(publishedAt).fromNow()}</span>

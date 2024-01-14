@@ -2,24 +2,23 @@ import React, { useEffect, useState } from "react";
 import { POPULAR_VIDEOS_API } from "../utils/constants";
 import { Link } from "react-router-dom";
 import RelatedVideoCard from "./RelatedVideoCard";
+import { apiKey1 } from "../utils/constants";
+import { useSelector } from "react-redux";
 
 export default function RelatedVideos() {
   const [videos, setVideos] = useState([]);
-
-  const apiKey = "AIzaSyCM-BtqrjbmqNMA8Jkepaj2L9Ybg8eBuYc";
 
   useEffect(() => {
     getVideos();
   }, []);
 
   const getVideos = async () => {
-    const data = await fetch(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=IN&key=${apiKey}`);
+    const data = await fetch(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=IN&key=${apiKey1}`);
     const json = await data.json();
 
     setVideos(json.items);
   };
 
-  console.log(videos);
 
   return (
     <div>
