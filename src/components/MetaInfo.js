@@ -119,7 +119,7 @@ export default function MetaInfo({ videoId }) {
             <p className="font-bold text-md">{channel}</p>
             <p className="text-sm">Suscribers</p>
           </div>
-          <div className="py-1 px-3 rounded-3xl bg-black text-white my-1 mx-2 cursor-pointer h-8">
+          <div className={`py-1 px-3 rounded-3xl ${darkmode ? `bg-white`:`bg-black` } text-white my-1 mx-2 cursor-pointer h-8`}>
             <p className="text-sm py-auto">Subscribe</p>
           </div>
         </div>
