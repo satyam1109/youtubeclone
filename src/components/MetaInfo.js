@@ -112,7 +112,7 @@ export default function MetaInfo({ videoId }) {
 
       <div className="flex flex-row justify-between my-3">
         <div className={`flex flex-row`}>
-          <div className="w-14 h-18">
+          <div className="w-12 h-14">
             <img src={icon} className="rounded-full w-full" />
           </div>
           <div className="fle flex-col mx-2">
