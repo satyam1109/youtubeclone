@@ -1,26 +1,47 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
 
 export default function Practise() {
 
-  const videoIds=["0iAhG6sQ0no","P15UhjGsCac","5GxpVSSBQOQ"];
 
-  const ids = videoIds.join(',');
+  const id="nIE2uETUE8k";
 
-  const apiKey="AIzaSyCAoTyFsV6yVWeyw-ct4UWfEmM4HZzrNYc";
+  const [downloadLink,setDownloadLink] = useState("");
 
-  const getVideoData = async()=>{
+  const link = `https://youtube-dl.wave.video/info?url=https:%2F%2Fwww.youtube.com/watch?v=${id}`;
 
-    const data = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${ids}&key=${apiKey}`);
+  useEffect(()=>{
+    Download();
+  },[])
+
+  const Download = async()=>{
+    const data = await fetch(link);
     const json = await data.json();
 
-    console.log(json.items);
+    setDownloadLink(json.formats[1].downloadUrl);
+
+    // console.log(json.formats[1].downloadUrl);
+    console.log(downloadLink);
 
   }
 
+  const redirectToInstagram = () => {
+    ;
+    window.open(downloadLink);
+  };
 
   return (
+    // <div>
+
+    //   <Link to="instagram.com"><button>Download</button></Link>
+      
+      
+    // </div>
+
     <div>
-      <button onClick={()=>getVideoData()}>GetConsole</button>
+      <p>Click the button to go to Instagram:</p>
+      <button onClick={redirectToInstagram}>Download</button>
     </div>
+
   )
 }

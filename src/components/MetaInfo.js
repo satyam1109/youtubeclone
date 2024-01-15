@@ -12,6 +12,8 @@ import { PiShareFat } from "react-icons/pi";
 import { HiOutlineSaveAs } from "react-icons/hi";
 import { HiDotsHorizontal } from "react-icons/hi";
 import Comments from "./Comments";
+import { MdOutlineFileDownload } from "react-icons/md";
+
 
 export default function MetaInfo({ videoId }) {
 
@@ -31,12 +33,13 @@ export default function MetaInfo({ videoId }) {
   const [date,setdate] = useState("") 
   const [showButton, setShowButton] = useState("Show More");
   const [channelId,setChannelId] = useState("");
-
-
   const [description,setDescription] = useState("");
+  const [downloadLink,setDownloadLink] = useState("");
+
 
   useEffect(() => {
     getMetaInfo();
+    getDownloadLink();
   }, [videoId]);
 
   useEffect(()=>{
@@ -44,6 +47,12 @@ export default function MetaInfo({ videoId }) {
   },[channelId]);
 
 
+  const getDownloadLink = async()=>{
+    const data = await fetch(`https://youtube-dl.wave.video/info?url=https:%2F%2Fwww.youtube.com/watch?v=${videoId}`);
+    const json = await data.json();
+    setDownloadLink(json?.formats[1]?.downloadUrl);
+    console.log(downloadLink);
+  }
 
   const getMetaInfo = async () => {
     const data = await fetch(
@@ -60,6 +69,10 @@ export default function MetaInfo({ videoId }) {
 
     
   };
+
+  const DownloadVideo = ()=>{
+    window.open(downloadLink);
+  }
 
   useEffect(()=>{
     if (descp.length > 100) {
@@ -124,12 +137,12 @@ export default function MetaInfo({ videoId }) {
             <LuThumbsDown className="w-4 h-5 mx-2  mt-1 cursor-pointer" />
           </div>
 
-          <div className={`flex flex-row ${darkmode ? `bg-zinc-600` : `bg-zinc-200`} p-1 rounded-3xl mx-1 cursor-pointer`}>
-            <PiShareFat className="w-5 h-5 mx-1" />
-            <span className="mr-1"><p className="text-sm">Share</p></span>
+          <div className={`cursor-pointer flex flex-row ${darkmode ? `bg-zinc-600 hover:bg-zinc-700` : `bg-zinc-200 hover:bg-zinc-300`} p-1 rounded-3xl mx-1 cursor-pointer`}>
+            <MdOutlineFileDownload className="w-5 h-5 mx-1" />
+            <span className="mr-1"><p className="text-sm" onClick={DownloadVideo}>Download</p></span>
           </div>
 
-          <div className={`flex flex-row ${darkmode ? `bg-zinc-600` : `bg-zinc-200`} p-1 rounded-3xl cursor-pointer `} onClick={addToWatchLaterfun}>
+          <div className={`cursor-pointer flex flex-row ${darkmode ? `bg-zinc-600 hover:bg-zinc-700` : `bg-zinc-200 hover:bg-zinc-300`} p-1 rounded-3xl cursor-pointer `} onClick={addToWatchLaterfun}>
             <HiOutlineSaveAs className="w-5 h-5 mx-2" />
             <span className="mr-1"><p className="text-sm">Watch Later</p></span>
           </div>
