@@ -51,7 +51,6 @@ export default function MetaInfo({ videoId }) {
     const data = await fetch(`https://youtube-dl.wave.video/info?url=https:%2F%2Fwww.youtube.com/watch?v=${videoId}`);
     const json = await data.json();
     setDownloadLink(json?.formats[1]?.downloadUrl);
-    console.log(downloadLink);
   }
 
   const getMetaInfo = async () => {
@@ -120,7 +119,7 @@ export default function MetaInfo({ videoId }) {
             <p className="text-sm">Suscribers</p>
           </div>
           <div className={`py-1 px-3 rounded-3xl ${darkmode ? `bg-white`:`bg-black` } text-white my-1 mx-2 cursor-pointer h-8`}>
-            <p className="text-sm py-auto">Subscribe</p>
+            <p className="text-sm py-auto text-black">Subscribe</p>
           </div>
         </div>
 
